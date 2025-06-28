@@ -1,0 +1,72 @@
+const sqlite = require('sqlite3')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const handler = {
+    register : async (req, res) => {
+        const body = req.body
+        console.log(body)
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(body.password, salt)
+
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+        if (error) return console.log('There was a problem connecting to the database', error)
+            console.log('Connected to the database successfully')
+        })
+
+        const query = 'INSERT INTO users(username, email, password, role) VALUES(?, ?, ?, ?)'
+        db.run(query, [body.username, body.email, hashedPassword, body.role], (error) => {
+            if (error) return console.log('There was a problem inserting the data into the database', error)
+                console.log('The data was inserted into the database successfully')
+                const query = 'SELECT * FROM users WHERE email = ?'
+                db.get(query, [body.email], (error,row) => {
+                    console.log(row)
+                    const token = jwt.sign({user : row}, 'token-secret')
+                    res.cookie('jwt', token, {maxAge : 86400000}).json('User registered successfully')
+                })  
+        })
+                
+        db.close(error => {
+        if (error) return console.log('Failed to close database', error)
+            console.log('Database closed successfully')
+        })
+    },
+    login : (req, res) => {
+        const body = req.body
+        const password = body.password
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+        if (error) return console.log('There was a problem connecting to the database', error)
+            console.log('Connected to the database successfully')
+        })
+
+        const query = 'SELECT * FROM users WHERE email = ?'
+        db.get(query, [body.email], async (error, row) => {
+            if (error) return console.log('There was a problem retrieving the data from the database', error)
+                console.log('Data retrieved successfully')
+                if (!row) return res.json('User does not exist Invalid email or password')
+                    const same = await bcrypt.compare(body.password, row.password)
+                    if(!same) return res.json('Invalid username or password')
+                    const token = jwt.sign({user : row}, 'token-secret')
+                    res.cookie('jwt', token, {maxAge : 86400000}).json({user : row})
+        })
+        db.close(error => {
+        if (error) return console.log('Failed to close database', error)
+            console.log('Database closed successfully')
+        })
+    },
+    verify : (req, res, next) => {
+        const token = req.cookies.jwt
+        if(!token) return res.render('access')
+            jwt.verify(token, 'token-secret', (error, decoded) => {
+                if (error) return res.render('access')
+                    req.user = decoded
+                    console.log(req.user)
+                    next()
+            })
+    },
+    logout : (req, res) => {
+        res.cookie('jwt', '', {maxAge : 1})
+        res.redirect('/')
+    }
+}
+module.exports = handler

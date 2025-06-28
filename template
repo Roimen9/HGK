@@ -1,0 +1,170 @@
+<div class="row mt-5 pt-lg-5 align-items-lg-center">
+            <div id="carouselExampleIndicators" class="carousel slide col-lg-6 col-12 mb-lg-0 mb-2">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+                </div>
+                <div class="carousel-inner gap-5">
+                    <div class="carousel-item active">
+                       <img src="#" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                       <img src="#" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                       <img src="" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                       <img src="" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                       <img src="" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden d-none">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="row">
+                    <div class="col-6 mb-lg-3 mb-2">
+                        <img src="" class="card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="col-6 mb-lg-3 mb-2">
+                        <img src="" class="card-img-top bg-info-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="col-6 mb-lg-3 mb-2">
+                        <img src="" class="card-img-top bg-success-subtle rounded-4" alt="" loading="lazy">
+                    </div>
+                    <div class="col-6 mb-lg-3 mb-2">
+                        <img src="" class="card-img-top bg-primary-subtle rounded-4 img-fluid" alt="" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info mt-3 d-flex flex-lg-row flex-column align-items-lg-end justify-content-between">
+            <div class="info mb-lg-0 mb-3 ms-lg-0 ms-2">
+                <h4></h4>
+                <h3 class="fs-3"></h3>
+            </div>
+            <div class="line d-flex flex-lg-row flex-column align-items-lg-center gap-lg-5 gap-3 ms-lg-0 ms-2">
+                <div class="extra-info d-flex align-items-lg-center align-items-start gap-1 flex-row">
+                    <div class="lead">Mileage : </div>
+                    <h3 class="fs-3"></h3>
+                </div>
+                <div class="extra-info d-flex align-items-start gap-1 flex-row align-items-lg-center">
+                    <div class="lead">Engine : </div>
+                    <h3 class="fs-3"></h3>
+                </div>
+                <div class="extra-info d-flex align-items-start gap-1 flex-row align-items-lg-center">
+                    <div class="lead">Condition : </div>
+                    <h3 class="fs-3"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="description mt-5">
+            <h2 class="fs-2 mb-3 text-lg-start ms-l-0 ms-2">Description</h2>
+            <p class="lead fs-5 mb-3 ms-lg-0 ms-2"></p>
+        </div>
+        <div class="details row mt-5 align-items-start">
+            <div class="col-lg-5 col-12 d-flex flex-column">
+                <h2 class="fs-2 mb-3 ms-3">Details</h2>
+            <div class="box bg-white rounded-4 mx-lg-0 mx-2 border border-1 shadow h-50 p-2">
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Year</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Transmission</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Category</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Make</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Model</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Exterior color</h3>
+                    <div class="lead fs-5"></div>
+                </div>
+                <div class="col d-flex flex-row justify-content-between m-2">
+                    <h3 class="fs-4">Interior color</h3>
+                    <div class="lead fs-5"></div>
+                    <div class="car" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="mt-4 pt-2 mx-lg-0 mx-2">
+                <h2 class="fs-2 mb-3 ms-3">Contact us</h2>
+                <div class="box bg-white border border-1 rounded-4 px-lg-3 px-2 py-1 shadow-sm"> 
+                    <div class="extra-info d-flex align-items-start gap-2 flex-row">
+                        <h2 class="fs-4">Call : </h3>
+                        <div class="lead">0113152608</div>
+                    </div>
+                    <div class="extra-info d-flex align-items-start gap-1 flex-row">
+                        <h2 class="fs-4">Email : </h3>
+                        <div class="lead">roimenryan@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-lg-6 col-12 offset-lg-1 mt-lg-0 mt-5">
+                <div">
+                    <div class="row d-flex justify-content-center align-items-center">
+                      <div>
+                        <div class="card bg-dark text-white pt-3 pb-2 mt-lg-3 rounded-4">
+                          <div class="card-body px-lg-5">      
+                              <h2 class="fw-bold mb-1 text-uppercase pb-3">Enquire</h2>
+                              <div class="row">
+                                <p class="feedback"></p>
+                                  <div class="col-6">
+                                      <label class="form-label fs-5 mb-3">Name:</label>
+                                      <input type="email" class="form-control mb-3 name  shadow-none">
+                                  </div>
+                                  <div class="col-6">
+                                      <label class="form-label fs-5 mb-3">Email:</label>
+                                      <input type="email" class="form-control mb-3 email shadow-none">        
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-6">
+                                          <label class="form-label fs-5 mb-3">Phone no. :</label>
+                                          <input type="email" class="form-control mb-3 phone  shadow-none">
+                                      </div>
+                                      <div class="col-6">
+                                          <label class="form-label fs-5 mb-3">Reason:</label>
+                                          <select type="email" class="form-control mb-3 email  shadow-none reason">
+                                            <option>Select reason</option>
+                                            <option >Purchase</option>
+                                            <option>Test Drive</option>
+                                          </select>        
+                                      </div>
+                              </div>
+                              <label class="form-label fs-5 mb-3">Message:</label>
+                              <textarea type="password" class="form-control mb-3  shadow-none message" cols="28" rows="3"></textarea>
+          
+                              <div class="row justify-content-center gap-5 mt-4">
+                                <button class="btn btn-outline-light rounded-5 fs-5 px-4 col-auto text-center align-items-center px-3 submit" type="submit">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
