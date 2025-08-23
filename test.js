@@ -28,13 +28,13 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-// const query = 'SELECT * FROM saved'
+// const query = 'SELECT * FROM users'
 // db.all(query, (error, rows) => {
 //     if (error) return console.log('There was a problem retrieving the data from the databse', error)
 //         console.log(rows)
 // })
 
-// const query = 'DROP TABLE restaurants'
+// const query = 'DROP TABLE saved'
 // db.run(query, (error) => {
 //     if (error) return console.log('There was a problem deletingthe table', error)
 //         console.log('Table deleted successfully')
@@ -53,11 +53,11 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-const query = 'SELECT * FROM users'
-db.all(query, (error, rows) => {
-    if (error) return console.log('There was a problem retrieving the data', error)
-        console.log('Data retrieved successfull', rows)
-})
+// const query = 'SELECT * FROM users'
+// db.all(query, (error, rows) => {
+//     if (error) return console.log('There was a problem retrieving the data', error)
+//         console.log('Data retrieved successfull', rows)
+// })
 
 // const query = 'INSERT INTO saved(user'
 // db.run(query, [2,7], (error) => {
@@ -65,8 +65,57 @@ db.all(query, (error, rows) => {
 //         console.log('Data deleted successfully')
 // })
 
-// const query = 'DELETE FROM users'
-// db.run(query, (error) => {
+// const users = ['Liam','Sofia','Noah','Ava','Ethan','Isabella','Mason','Harper','Logan','Chloe']
+// users.forEach(user => {
+//     const query = 'DELETE FROM users WHERE username = ?'
+//     db.run(query, [user],(error) => {
 //     if (error) return console.log('There was a problem deleting the data from the database')
 //         console.log('Data deleted successfully')
 // })
+// })
+
+// const query = 'ALTER TABLE restaurants ADD COLUMN views INTEGER DEFAULT 0'
+// db.run(query, (error) => {
+//     if (error) return console.log('There was a problem altering the table', error)
+//         console.log('Table altered successfully')
+// })
+
+// const query = 'ALTER TABLE users ADD COLUMN timestamp DATETIME'
+// db.run(query, (error) => {
+//     if (error) return console.log('FailEd to alter table', error)
+//         console.log('Table altered successfully')
+// })
+// const query = 'SELECT SUBSTR("timestamp", 1, length("timestamp") - 6) || " " || SUBSTR("timestamp", -2) AS minute, COUNT(*) AS total_users FROM users GROUP BY minute ORDER BY minute'
+// db.get(query, (error, rows) => {
+//     if (error) return console.log('There was a problem selecting ghe data', error)
+//         console.log('Data retrieved successfully', rows)
+// })
+
+// let date = Math.ceil(Math.random() * 7)
+// console.log(date)
+
+const query = 'SELECT timestamp FROM users';
+db.all(query, (error, rows) => {
+    if (error) return console.log('There was a problem retrieving the data', error);
+
+    console.log('Data retrieved successfully');
+
+    const stamps = [];
+
+    rows.forEach(row => {
+        if (row.timestamp) {
+            // Extract the date or number from timestamp text
+            let value = parseInt(Object.values(row)); 
+            stamps.push(value);
+        }
+    });
+
+    // Count occurrences
+    const counts = stamps.reduce((count, stamp) => {
+        count[stamp] = count[stamp] ? count[stamp] + 1 :  1;
+        return count;
+    }, {});
+
+    console.log(counts);
+});
+

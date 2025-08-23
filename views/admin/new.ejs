@@ -111,7 +111,13 @@
       const info = document.querySelector('.feedback')
 
       async function send() {
-        const password = Math.round(Math.random() * 100).toString()
+        const length = 10
+        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%&*';
+        let password = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            password += chars[randomIndex];
+        }
         console.log(password)
         const restaurant = {
             name : document.querySelector('.name').value,
@@ -123,7 +129,6 @@
             category : document.querySelector('.category').value,
             cuisine : document.querySelector('.cuisine').value,
             Location : document.querySelector('.location').value,
-            role : 'restaurant',
             password : password,
             offer : ''
         }
@@ -141,12 +146,14 @@
           // console.log(response)
           if (!response.ok) return new Error('Internal server error')
             const data = await response.json()
+          info.style.color = 'green'
             info.textContent = data
             // setTimeout(() => {
             //   location.assign('/')
             // }, 3000);
         } catch (error) {
           console.log('Error', error)
+          info.style.color = 'red'
           info.textContent = 'There was a problem inserting the data in the database'
         }
       }

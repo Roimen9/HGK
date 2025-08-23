@@ -8,14 +8,15 @@ const handler = {
         console.log(body)
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(body.password, salt)
+        const role = 'user'
 
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
         if (error) return console.log('There was a problem connecting to the database', error)
             console.log('Connected to the database successfully')
         })
 
-        const query = 'INSERT INTO users(username, email, password, role) VALUES(?, ?, ?, ?)'
-        db.run(query, [body.username, body.email, hashedPassword, body.role], (error) => {
+        const query = 'INSERT INTO users(username, email, password, role, timestamp) VALUES(?, ?, ?, ?, ?)'
+        db.run(query, [body.username, body.email, hashedPassword, role, body.date], (error) => {
             if (error) return console.log('There was a problem inserting the data into the database', error)
                 console.log('The data was inserted into the database successfully')
                 const query = 'SELECT * FROM users WHERE email = ?'
@@ -54,14 +55,37 @@ const handler = {
             console.log('Database closed successfully')
         })
     },
-    verify : (req, res, next) => {
+    verifyUser : (req, res, next) => {
+        const token = req.cookies.jwt
+        if(!token) return res.render('access')
+            jwt.verify(token, 'token-secret', (error, decoded) => {
+                if (error) return res.render('access')
+                    req.user = decoded
+                    console.log(req.user.user.role)
+                    if (req.user.user.role !== 'user') return res.render('denied')
+                        next()
+            })
+    },
+    verifyAdmin : (req, res, next) => {
         const token = req.cookies.jwt
         if(!token) return res.render('access')
             jwt.verify(token, 'token-secret', (error, decoded) => {
                 if (error) return res.render('access')
                     req.user = decoded
                     console.log(req.user)
-                    next()
+                    if (req.user.user.role !== 'admin') return res.render('denied')   
+                        next() 
+            })
+    },
+    verifyRestaurant : (req, res, next) => {
+        const token = req.cookies.jwt
+        if(!token) return res.render('access')
+            jwt.verify(token, 'token-secret', (error, decoded) => {
+                if (error) return res.render('access')
+                    req.user = decoded
+                    console.log(req.user.role)
+                    if (req.user.user.role !== 'restaurant') return res.render('denied')   
+                        next() 
             })
     },
     logout : (req, res) => {

@@ -7,7 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <title>Home</title>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');  
     .restaurant .card {
         position: relative;
         overflow: hidden;
@@ -21,6 +20,7 @@
         height: 100%;
         background-color: rgb(129, 193, 238); /* semi-transparent */
         color: white;
+        padding-left: 5px;
         text-align: center;
         align-content: center;
         border-radius: 10px;
@@ -34,19 +34,21 @@
         scrollbar-color: rgba(255,255,255,0.4) transparent; 
     }
 
-    .restaurant:hover .offer {
+    @media(min-width: 768px) {
+        .restaurant:hover .offer {
         opacity: 1;
     }
+        
+    }
 </style>
-
 </head>
 <body class="bg-body-tertiary">
-    <%- include('./partials/header') %>
+    <%- include('../partials/admin-header') %>
     <div class="container mt-5 pt-lg-5 pt-2">
         <div class="row mt-5 pt-5 align-items-center">
             <div class="col-lg-6 col-12 text">
-                <h1 class="col text-lg-start text-center">Can't decide where to go?</h1>
-                <div class="col text-lg-start text-center lead fs-4 description">Browse through our curated list of restaurants and find the best place to have the time of your life with friends and family.</div>
+                <h1 class="col text-lg-start text-center">Welcome back <%= user.username %></h1>
+                <div class="col text-lg-start text-center lead fs-4">Browse through our curated list of restaurants and find the best place to have the time of your life with your friends and family.</div>
             </div>
             <div class="col-lg-6 col-12 car">
                 <img src="https://s7ap1.scene7.com/is/image/tatamotors/sunlit-yellow-left?$VH-708-500-D$&fit=crop&fmt=webp-alpha" alt="" class="w-100">
@@ -81,8 +83,8 @@
                 </a>
             <% } %>
        <% }) %>
-        </div> 
+        </div>
     </div>
-    <%- include('./partials/footer') %>
+    <%- include('../partials/footer') %>
 </body>
 </html>

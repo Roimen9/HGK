@@ -1,4 +1,5 @@
 const sqlite = require('sqlite3')
+const nodemailer = require('nodemailer')
 const {promisify} = require('util')
 const bcrypt = require('bcrypt')
 const handler = {
@@ -10,18 +11,38 @@ const handler = {
         })
 
         const query = 'INSERT INTO restaurants(name, description, cuisine, category, vibe, location, number, email, instagram, offer) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        db.run(query, [body.name, body.description, body.cuisine, body.category, body.vibe, body.location, body.number, body.email, body.instagram, body.offer], async (error) => {
+        db.run(query, [body.name, body.description, body.cuisine, body.category, body.vibe, body.location, body.number, body.email, body.instagram, body.offer], (error) => {
             if (error) return console.log('There was a problem inserting the data into the database', error)
                 console.log('Data inserted into the database successfully')
-                console.log(body.password)                
-                const salt = await bcrypt.genSalt(10)
-                const hashedPassword = await bcrypt.hash(body.password, salt)
-                const query = 'INSERT INTO users(username, email, password, role) VALUES(?, ?, ?, ?)'
-                db.run(query, [body.name, body.email, hashedPassword, body.role], (error) => {
-                    if (error) return console.log('There was a problem insertng the data into the database', error)
-                        console.log('Data inserted successfully')
-                        res.json('Restaurant added successfully')
+                console.log(body.password)
+                const transporter = nodemailer.createTransport ({
+                    service : 'gmail',
+                    auth : {
+                        user : 'hiddengemskenya1@gmail.com',
+                        pass : 'kyjukzuuhvpiwiaz'
+                    }
                 })
+                const mailOption = {
+                    from : 'hiddengemskenya1@gmail.com',
+                    to : body.email,
+                    subject : 'Welcome to HiddenGemsKenya',
+                    text : `Hello ${body.name},\n\nThank you for registering your restaurant with us. Here are your login details:\n\nEmail: ${body.email}\nPassword: ${body.password}\n\nYou can now log in to your account and manage your restaurant's page.\n\nKindly ensure that you do not share this information with anyone else.\n\nBest regards,\nHiddenGemsKenya`
+                }
+                transporter.sendMail(mailOption, async (error, info) => {
+                    if (error) return console.log('There was a problem sending the email', error)
+                        console.log('Email sent successfully', info.response)
+                        const date = new Date()
+                        const salt = await bcrypt.genSalt(10)
+                        const hashedPassword = await bcrypt.hash(body.password, salt)
+                        const role = 'restaurant'
+                        const query = 'INSERT INTO users(username, email, password, role, timestamp) VALUES(?, ?, ?, ?, ?)'
+                        db.run(query, [body.name, body.email, hashedPassword, role, date.toLocaleTimeString()], (error) => {
+                            if (error) return console.log('There was a problem inserting the data into the database', error)
+                                console.log('Data inserted successfully')
+                                res.json('Restaurant added successfully')
+                        })
+                })                
+                
         })
     },
     displayRestaurants : (req, res) => {
@@ -49,6 +70,20 @@ const handler = {
             if (error) return console.log("There was a problem retrieving the data from the database", error)
                 console.log('Data retrieved successfully')
                 res.render('user/restaurants', {rows})
+        })
+    },
+    displayAdminRestaurants : (req, res) => {
+        const user_id = req.user.user.id
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+        if (error) return console.log('There was a problem connecting to the database', error)
+            console.log('Connected to the database succcessfully')
+        })
+
+        const query = 'SELECT * FROM restaurants WHERE id NOT IN (SELECT restaurant_id FROM saved WHERE user_id = ?)'
+        db.all(query, [user_id], (error, rows) => {
+            if (error) return console.log("There was a problem retrieving the data from the database", error)
+                console.log('Data retrieved successfully')
+                res.render('admin/restaurants', {rows})
         })
     },
     displayRestaurant : (req, res) => {
@@ -184,6 +219,45 @@ const handler = {
             db.close();
         }
     },
+    adminDashboard : (req, res) => {
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error)=> {
+            if(error) return console.log('There was aproblem connecting to the database', error)
+                console.log('Connected to the database successfully')
+        })
+
+        const query = 'SELECT * FROM users'
+        db.all(query, (error, rows) => {
+            if(error) return console.log('There was a problem retrieving the data', error)
+                console.log('Data retrieved successfully')
+                const users = []
+                const restaurants = []
+                rows.forEach(row => {
+                    if(row.role === 'user') {
+                        users.push(row)
+                    } else if(row.role === 'restaurant') {
+                        restaurants.push(row)
+                    }
+                })
+
+                const stamps = []
+                rows.forEach(row => {
+                    if (row.timestamp) {
+                        stamps.push(row.timestamp);
+                    }
+                });
+
+                // Count occurrences
+                const counts = stamps.reduce((count, stamp) => {
+                    count[stamp] = count[stamp] ? count[stamp] + 1 :  1;
+                    return count;
+                }, {});
+
+                const newData = JSON.stringify(counts)
+                console.log(stamps, counts, newData);
+                // console.log(restaurants, users)
+                res.render('admin/dashboard', {users : users.length, restaurants : restaurants.length, axes : newData})
+        })
+    },
     restaurantDashboard : (req, res) => {
         const email = req.user.user.email
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error)=> {
@@ -213,8 +287,8 @@ const handler = {
                 console.log('Connected to the database successfully')
         })
 
-        const query = 'UPDATE restaurants SET offer = ? WHERE id = ?'
-        db.run(query, [body.offer, id], (error) => {
+        const query = 'UPDATE restaurants SET offer = ?, views = ? WHERE id = ?'
+        db.run(query, [body.offer, 0, id], (error) => {
             if (error) return console.log('Failed to update the data inthe database', error)
                 console.log('Data updated successfully')
                 res.json('Offer updated successfully')
@@ -249,6 +323,33 @@ const handler = {
             if (error) return console.log("There was a problem retrieving the data from the database", error)
                 console.log('Data retrieved successfully')
                 res.render('user/home', {rows, user : req.user.user})
+        })
+    },
+    offerSectionAdmin : (req, res) => {
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+        if (error) return console.log('There was a problem connecting to the database', error)
+            console.log('Connected to the database succcessfully')
+        })
+
+        const query = 'SELECT * FROM restaurants'
+        db.all(query, (error, rows) => {
+            if (error) return console.log("There was a problem retrieving the data from the database", error)
+                console.log('Data retrieved successfully')
+                res.render('admin/home', {rows, user : req.user.user})
+        })
+    },
+    viewed : (req, res) => {
+        const id = req.params.id
+        const views = req.body
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+            if (error) return console.log('There was a problem connecting to the database', error)
+                console.log('Connected to the database successfully')
+        })
+
+        const query = 'UPDATE restaurants SET views = ? WHERE id = ?'
+        db.run(query, [views.views, id], (error) => {   
+            if (error) return console.log('There was a problem updating the data in the database', error)
+                console.log('Data updated successfully')
         })
     }
 }

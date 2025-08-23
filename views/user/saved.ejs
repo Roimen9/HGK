@@ -59,17 +59,6 @@
             <Option class="text-start fs-5">Thai</Option>
             <Option class="text-start fs-5">Vegetarian/Vegan</Option>
 
-        </select>
-        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="price" aria-label="Select vehicle price">
-            <Option class="fs-5 text-start rounded-4" value="">Budget</Option>
-            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
-            <Option class="text-start fs-5" value="0-500000">0 - 500K</Option>
-            <Option class="text-start fs-5" value="500000-1000000">500K - 1M</Option>
-            <Option class="text-start fs-5" value="1000000-2000000">1M - 2M</Option>
-            <Option class="text-start fs-5" value="2000000-3000000">2M - 3M</Option>
-            <Option class="text-start fs-5" value="3000000-5000000">3M - 5M</Option>
-            <Option class="text-start fs-5" value="5000000-10000000">5M - 10M</Option>
-            <Option class="text-start fs-5" value="10000000-10000000000">Above 10M</Option>
         </select>        
         <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="category">
             <Option class="text-start fs-5" value="">Category</Option>
@@ -93,23 +82,38 @@
         <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="vibe" aria-label="Select vibe">
             <Option class="fs-5 text-start rounded-4" value="">Vibe</Option>
             <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
+            <Option class="text-start fs-5">Cozy</Option>
             <Option class="text-start fs-5">Romantic</Option>
-            <Option class="text-start fs-5">Family</Option>
-            <Option class="text-start fs-5">Business</Option>
-            <Option class="text-start fs-5">Celebration</Option>
+            <Option class="text-start fs-5">Casual</Option>
             <Option class="text-start fs-5">Quiet</Option>
+            <Option class="text-start fs-5">Outdoor</Option>
+            <Option class="text-start fs-5">Romantic</Option>
+            <Option class="text-start fs-5">Festive</Option>
+            <Option class="text-start fs-5">Sporty/pub-like</Option>
+            <Option class="text-start fs-5">Family-friendly</Option>
+            <Option class="text-start fs-5">Business-friendly</Option>
         </select>
-            <input type="text" class="d-none d-lg-block border border-1 rounded-pill ps-3 py-2 fs-5 ms-2 col-lg-3 col-8" placeholder="Search by location" id="search">            
+        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="amenities" aria-label="Amenities">
+            <Option class="fs-5 text-start rounded-4" value="">Amenities</Option>
+            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
+            <Option class="text-start fs-5">Free Wi-Fi</Option>
+            <Option class="text-start fs-5">Parking</Option>
+            <Option class="text-start fs-5">Takeaway</Option>
+            <Option class="text-start fs-5">Outdoor seating</Option>
+            <Option class="text-start fs-5">Card & mobile</Option>
+            <Option class="text-start fs-5">Live entertainment</Option>
+        </select>
+            <input type="text" class="d-none d-lg-block border border-1 rounded-pill d-flex ps-3 py-2 fs-5 ms-2 col-lg-2 col-8" placeholder="Search by location" id="search">            
     </div>
     <div class="row mt-2 d-lg-none">
         <input type="text" class="border border-1 rounded-pill ps-3 py-2 fs-5 ms-2 col-lg-3 col-8" placeholder="Search by location" id="search">            
     </div>
     <div class="container my-3">
-        <div class="fs-4 h5 counter"><%= rows.length %> <%= rows.length > 1 ? 'Restaurants' : 'Restaurant' %> Saved</div>
+        <div class="fs-4 h5 counter"><%= rows.length %> <%= rows.length === 1 ? 'Restaurant' : 'Restaurants' %> saved</div>
     </div>
     <div class="row" id="restaurants">
         <% rows.forEach(row => { %>
-            <a href="/user/saved/<%= row.id %>" class="col-lg-3 col-md-6 col-12 mb-3 restaurant" style="text-decoration: none;"
+            <a href="/user/restaurant/<%= row.id %>" class="col-lg-3 col-md-6 col-12 mb-3 restaurant" style="text-decoration: none;"
                 data-cuisine="<%= row.cuisine %>"
                 data-category="<%= row.category %>"
                 data-vibe="<%= row.vibe %>">
@@ -132,6 +136,7 @@
             const cuisineFilter = document.getElementById('cuisine')
             const categoryFilter = document.getElementById('category')
             const vibeFilter = document.getElementById('vibe')
+            const amenitiesFilter = document.getElementById('amenities')
             const searchBar = document.getElementById('search')
             
             let count = 0
@@ -141,21 +146,23 @@
                 const cuisine = cuisineFilter.value.toLowerCase()
                 const category = categoryFilter.value.toLowerCase()
                 const vibe = vibeFilter.value.toLowerCase()
+                const amenities = amenitiesFilter.value.toLowerCase()
                 const search = searchBar.value.toLowerCase()
                 restaurants.forEach(restaurant => {
                     const matchCuisine = cuisine ? restaurant.dataset.cuisine.toLowerCase().includes(cuisine) : true
                     const matchCategory = category ? restaurant.dataset.category.toLowerCase().includes(category) : true
                     const matchVibe = vibe ? restaurant.dataset.vibe.toLowerCase().includes(vibe) : true
+                    const matchAmenities = amenities ? restaurant.dataset.vibe.toLowerCase().includes(amenities) : true
                     const matchSearch = search ? restaurant.textContent.toLowerCase().includes(search) : true
-                    const matchAll = matchCuisine && matchCategory && matchVibe && matchSearch
+                    const matchAll = matchCuisine && matchCategory && matchVibe && matchAmenities && matchSearch
 
                     restaurant.style.display = matchAll ? 'block' : 'none';
                     if (matchAll) count++
                 })
                 if (count === 1) {
-                    counter.textContent = `${count} restaurant available`
+                    counter.textContent = `${count} restaurant saved`
                 } else {
-                    counter.textContent = `${count} restaurants available`
+                    counter.textContent = `${count} restaurants saved`
                 }   
                 count = 0
             }
@@ -170,6 +177,7 @@
             cuisineFilter.addEventListener("change", filter)
             categoryFilter.addEventListener("change", filter)
             vibeFilter.addEventListener("change", filter)
+            amenitiesFilter.addEventListener("change", filter)
             searchBar.addEventListener("input", debounce(filter, 50));
         })
     </script>

@@ -123,22 +123,22 @@
                     <span class="visually-hidden">Next</span>
                 </button>
                 <div class="offer" style="display: none;"><%= row.offer %></div>
-               
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <input type="text" class="views" style="display: none;" value="<%= row.views %>">               
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Offer</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close shadow-none view" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body"><%= row.offer %></div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark rounded-pill fs-5" data-bs-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-dark rounded-pill fs-5 view" data-bs-dismiss="modal">Close</button> -->
                         </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -150,6 +150,8 @@
         const info = document.querySelector('.info')
         const status = document.querySelector('.status')
         const offer = document.querySelector('.offer')
+        const view = document.querySelector('.view')
+        const views = document.querySelector('.views')
 
         document.addEventListener('DOMContentLoaded', () => {            
             if (offer.textContent) {
@@ -202,7 +204,30 @@
            }           
         }
 
+        async function viewed() {
+            let viewCount = parseInt(views.value)
+            viewCount++
+            console.log(viewCount)
+
+            const options =  {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ views: viewCount })
+            }
+
+            try {
+                const response = await fetch(`/user/view/${id}`, options)
+                if(!response) return new Error('Internal Server error')
+                    const data = await response.json()
+                    console.log(data)
+            } catch (error) {
+                console.log('Error', error)   
+            }
+        }
+
         marker.onclick = mark
-        
+        view.onclick = viewed
     </script>
 </html>

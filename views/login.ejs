@@ -394,15 +394,17 @@
                         throw new Error('Internal server error')
                     }
                     const data = await response.json()
-                    // console.log(data.row.role)
+                    console.log(data, 'Data from login')
                     if(typeof data === 'object') {
                         loginInfo.style.color = 'Green'
                         loginInfo.textContent = 'Logged in successfully'
                         setTimeout(() => {
                             if (data.user.role === 'user') {
                                 location.assign('/user/home')
-                            } else {
+                            } else if (data.user.role === 'restaurant') {
                                 location.assign('/restaurant/page')
+                            } else {
+                                location.assign('/admin/dashboard')
                             }
                             loginInfo.textContent = ""
                             loginEmail.value = ""
@@ -436,11 +438,12 @@
             const filled = RU && RE && RP
 
             if (filled) {
+                let date = Math.ceil(Math.random() * 10)
                 const user = {
                     username : username.value,
                     email : registerEmail.value,
                     password : registerPassword.value,
-                    role : 'user'
+                    date : date
                 }
                 console.log(user)
 
