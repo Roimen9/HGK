@@ -438,7 +438,11 @@
             const filled = RU && RE && RP
 
             if (filled) {
-                let date = Math.ceil(Math.random() * 10)
+                let date = new Date()
+                let day = Math.ceil(Math.random() * 7)
+                let month = Math.ceil(Math.random() * 4)
+                date.setDate(date.getDay() + day) 
+                date.setMonth(date.getMonth() + month) 
                 const user = {
                     username : username.value,
                     email : registerEmail.value,

@@ -11,5 +11,6 @@ router.get('/saved', AUTHhandler.verifyUser, APIhandler.savedRestaurants)
 router.post('/save/:id', AUTHhandler.verifyUser, APIhandler.save)
 router.delete('/remove/:id', AUTHhandler.verifyUser, APIhandler.unsave)
 router.post('/view/:id', AUTHhandler.verifyUser, APIhandler.viewed)
+router.post('/filters', APIhandler.filters)
 
 module.exports = router

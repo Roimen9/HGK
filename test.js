@@ -28,12 +28,6 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-// const query = 'SELECT * FROM users'
-// db.all(query, (error, rows) => {
-//     if (error) return console.log('There was a problem retrieving the data from the databse', error)
-//         console.log(rows)
-// })
-
 // const query = 'DROP TABLE saved'
 // db.run(query, (error) => {
 //     if (error) return console.log('There was a problem deletingthe table', error)
@@ -53,7 +47,7 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-// const query = 'SELECT * FROM users'
+// const query = 'SELECT * FROM filters'
 // db.all(query, (error, rows) => {
 //     if (error) return console.log('There was a problem retrieving the data', error)
 //         console.log('Data retrieved successfull', rows)
@@ -65,16 +59,21 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data deleted successfully')
 // })
 
-// const users = ['Liam','Sofia','Noah','Ava','Ethan','Isabella','Mason','Harper','Logan','Chloe']
+// const users = []
 // users.forEach(user => {
 //     const query = 'DELETE FROM users WHERE username = ?'
 //     db.run(query, [user],(error) => {
 //     if (error) return console.log('There was a problem deleting the data from the database')
 //         console.log('Data deleted successfully')
-// })
+//     })
 // })
 
-// const query = 'ALTER TABLE restaurants ADD COLUMN views INTEGER DEFAULT 0'
+// const query = 'CREATE TABLE offerViews(id INTEGER PRIMARY KEY, timestamp, views)'
+// db.run(query, (error) => {
+//     if (error) return console.log('There wsa a problem creatingthe table')
+//         console.log('Table created successfully')
+// })
+// const query = 'ALTER TABLE offerViews ADD COLUMN restaurant_id'
 // db.run(query, (error) => {
 //     if (error) return console.log('There was a problem altering the table', error)
 //         console.log('Table altered successfully')
@@ -94,28 +93,65 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 // let date = Math.ceil(Math.random() * 7)
 // console.log(date)
 
-const query = 'SELECT timestamp FROM users';
-db.all(query, (error, rows) => {
-    if (error) return console.log('There was a problem retrieving the data', error);
+// const query = 'SELECT timestamp FROM users';
+// db.all(query, (error, rows) => {
+//     if (error) return console.log('There was a problem retrieving the data', error);
 
-    console.log('Data retrieved successfully');
+//     console.log('Data retrieved successfully');
 
-    const stamps = [];
+//     const stamps = [];
 
-    rows.forEach(row => {
-        if (row.timestamp) {
-            // Extract the date or number from timestamp text
-            let value = parseInt(Object.values(row)); 
-            stamps.push(value);
-        }
-    });
+//     rows.forEach(row => {
+//         if (row.timestamp) {
+//             // Extract the date or number from timestamp text
+//             let value = parseInt(Object.values(row)); 
+//             stamps.push(value);
+//         }
+//     });
 
-    // Count occurrences
-    const counts = stamps.reduce((count, stamp) => {
-        count[stamp] = count[stamp] ? count[stamp] + 1 :  1;
-        return count;
-    }, {});
+//     // Count occurrences
+//     const counts = stamps.reduce((count, stamp) => {
+//         count[stamp] = count[stamp] ? count[stamp] + 1 :  1;
+//         return count;
+//     }, {});
 
-    console.log(counts);
-});
+//     console.log(counts);
+// });
 
+// let day = Math.ceil(Math.random() * 7)
+// let month = Math.ceil(Math.random() * 4)
+// console.log(day, month)
+// let date = new Date()
+// console.log(date.toDateString())
+// date.setDate(date.getDay() + day)
+// date.setMonth(date.getMonth() + month)
+// console.log(date.toDateString())
+
+
+// const query = 'CREATE TABLE logtimes(id INTEGERS PRIMARY KEY, timestamp DATETIME)'
+// db.run(query, (error) => {
+//     if (error) return console.log('There was a problem creating the table', error)
+//         console.log('Table create successfully')
+// })
+
+// const query = 'CREATE TABLE offer_details(id INTEGER PRIMARY KEY, restaurant_id, timestamp, day, views)'
+// db.run(query,(error) => {
+//     if(error) return console.log('There was a problem creating the table', error)
+//         console.log('Table created successfully')
+// })
+
+// const query = 'ALTER TABLE offer_details DROP COLUMN day'
+// db.run(query, (error) => {
+//     if (error) return console.log('there was a problem altering the table', error)
+//         console.log('Table altered successfully')
+// })
+
+// const query = 'CREATE TABLE filters(id INTEGER PRIMARY KEY, type, filter, timestamp)'
+// db.run(query, (error) => {
+//     if (error) return console.log('There was problem create the table', error)
+//         console.log('Table created successfully')
+// })
+
+
+// const date = new Date()
+// console.log(date)

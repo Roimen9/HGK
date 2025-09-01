@@ -24,7 +24,7 @@
                     <h3 class="card-title text-center">Sold cars</h3>
                     <h4 class="fs-4 p-3 text-center"><%=  %></h4>
                 </div> -->
-                <input type="text" class="data" value="<%= axes %>" style="display: none;">
+                <input type="text" class="data" value="<%= dayAxes %>" style="display: none;">
             </div>
         </div>
         <canvas id="myChart" height="88px"></canvas>
@@ -38,13 +38,27 @@
         // Extract keys (dates) and values (number of signups)
         const labels = Object.keys(counts);
         const values = Object.values(counts);
+        console.log(labels)
+        const index = []
+        labels.forEach(label => {
+            let num = parseInt(label)
+            index.push(num)
+        })
+        console.log(index)
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sunday']
+
+        const label = []
+        index.forEach(i => {
+            label.push(days[i])
+        })
 
         // Draw the line chart
         const ctx = document.getElementById('myChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: label,
                 datasets: [{
                     label: 'User Signups',
                     data: values,

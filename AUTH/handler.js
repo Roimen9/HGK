@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const handler = {
     register : async (req, res) => {
         const body = req.body
-        console.log(body)
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(body.password, salt)
         const role = 'user'

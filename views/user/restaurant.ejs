@@ -127,14 +127,15 @@
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Offer</h1>
+                        <div class="modal-content border-0 shadow-lg rounded-3" style="background-color: #fff;">
+                        
+                        <div class="modal-header border-0 pb-1">
+                            <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Offer</h1>
                             <button type="button" class="btn-close shadow-none view" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body"><%= row.offer %></div>
-                        <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-dark rounded-pill fs-5 view" data-bs-dismiss="modal">Close</button> -->
+                        
+                        <div class="modal-body pb-5 text-secondary text-center fs-5" style="overflow-wrap: anywhere;">
+                            <%= row.offer %>
                         </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@ const sqlite = require('sqlite3')
 const nodemailer = require('nodemailer')
 const {promisify} = require('util')
 const bcrypt = require('bcrypt')
+const { error } = require('console')
 const handler = {
     newRestaurant : (req, res) => {
         const body = req.body
@@ -147,14 +148,15 @@ const handler = {
     save : (req, res) => {
         const user_id = req.user.user.id
         const restaurant_id = req.params.id
-        console.log(user_id, restaurant_id)
+        const date = new Date()
+        console.log(user_id, restaurant_id, date)
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
         if (error) return console.log('There was a problem connecting to the database', error)
             console.log('Connected to the database succcessfully')
         })
 
-        const query = 'INSERT INTO saved(user_id, restaurant_id) VALUES(?, ?)'
-        db.run(query, [user_id, restaurant_id], (error) => {
+        const query = 'INSERT INTO saved(user_id, restaurant_id, timestamp) VALUES(?, ?, ?)'
+        db.run(query, [user_id, restaurant_id, date], (error) => {
             if (error) return console.log('There was a problem inserting the data into the database', error)
                 console.log('Data inserted successfully')
         })
@@ -239,23 +241,32 @@ const handler = {
                     }
                 })
 
-                const stamps = []
-                rows.forEach(row => {
-                    if (row.timestamp) {
-                        stamps.push(row.timestamp);
+                const days = []
+                const months = []
+                users.forEach(user => {
+                    if (user.timestamp) {
+                        let day = new Date(user.timestamp).getDay()
+                        let month = new Date(user.timestamp).getMonth()
+                        days.push(day)
+                        months.push(month)
                     }
                 });
 
                 // Count occurrences
-                const counts = stamps.reduce((count, stamp) => {
-                    count[stamp] = count[stamp] ? count[stamp] + 1 :  1;
+                const dayCounts = days.reduce((count, day) => {
+                    count[day] = count[day] ? count[day] + 1 :  1;
+                    return count;
+                }, {});
+                const monthCounts = months.reduce((count, month) => {
+                    count[month] = count[month] ? count[month] + 1 :  1;
                     return count;
                 }, {});
 
-                const newData = JSON.stringify(counts)
-                console.log(stamps, counts, newData);
+                const newDayData = JSON.stringify(dayCounts)
+                const newMonthData = JSON.stringify(monthCounts)
+                console.log(days, months, newDayData, newMonthData);
                 // console.log(restaurants, users)
-                res.render('admin/dashboard', {users : users.length, restaurants : restaurants.length, axes : newData})
+                res.render('admin/dashboard', {users : users.length, restaurants : restaurants.length, dayAxes : newDayData, monthAxes : newMonthData})
         })
     },
     restaurantDashboard : (req, res) => {
@@ -350,6 +361,25 @@ const handler = {
         db.run(query, [views.views, id], (error) => {   
             if (error) return console.log('There was a problem updating the data in the database', error)
                 console.log('Data updated successfully')
+        })
+    }, 
+    filters : (req, res) => {
+        const body = req.body
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+            if (error) return console.log('There was a problem connecting to the database', error)
+                console.log('Connected to the database successfully')
+                res.json('Entered successfully')
+        })
+
+        const query = 'INSERT INTO filters(type, filter, timestamp)VALUES(?, ?, ?)'
+        db.run(query, [body.type, body.filter, body.date], (error) => {
+            if(error) return console.log('There was a problem inserting the data into the database', error)
+                console.log('Data inserted into the databse successfully')
+        })
+
+        db.close(error =>{
+            if (error) return console.log('There was a problem closing the database', error)
+                console.log('Database closed successfully')
         })
     }
 }

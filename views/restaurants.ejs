@@ -34,76 +34,75 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
       </script>     
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-body-light">
     <%- include('./partials/header') %>
 
     <div class="container mt-5 pt-5">
     <div class="mt-4 d-flex flex-row gap-3 align-items-center" style="overflow-x: scroll; scroll-behavior: smooth; scrollbar-width: none;">
-        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="cuisine" aria-label="Select cuisine">
+        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="cuisine" aria-label="Select cuisine">
             <Option class="fs-5 text-start rounded-4" value="">Cuisine</Option>
-            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
-            <Option class="text-start fs-5">African</Option>
-            <Option class="text-start fs-5">American</Option>
-            <Option class="text-start fs-5">Caribbean</Option>
-            <Option class="text-start fs-5">Chinese</Option>
-            <Option class="text-start fs-5">French</Option>
-            <Option class="text-start fs-5">Fusion</Option>
-            <Option class="text-start fs-5">Indian</Option>
-            <Option class="text-start fs-5">Italian</Option>
-            <Option class="text-start fs-5">Japanese</Option>
-            <Option class="text-start fs-5">Korean</Option>
-            <Option class="text-start fs-5">Mediterranean</Option>
-            <Option class="text-start fs-5">Mexican</Option>
-            <Option class="text-start fs-5">Middle Eastern</Option>
-            <Option class="text-start fs-5">Seafood</Option>
-            <Option class="text-start fs-5">Thai</Option>
-            <Option class="text-start fs-5">Vegetarian/Vegan</Option>
+            <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+            <Option class="text-start fs-5 filter" value="African">African</Option>
+            <Option class="text-start fs-5 filter" value="American">American</Option>
+            <Option class="text-start fs-5 filter" value="Caribbean">Caribbean</Option>
+            <Option class="text-start fs-5 filter" value="Chinese">Chinese</Option>
+            <Option class="text-start fs-5 filter" value="French">French</Option>
+            <Option class="text-start fs-5 filter" value="Fusion">Fusion</Option>
+            <Option class="text-start fs-5 filter" value="Indian">Indian</Option>
+            <Option class="text-start fs-5 filter" value="Italian">Italian</Option>
+            <Option class="text-start fs-5 filter" value="Japanese">Japanese</Option>
+            <Option class="text-start fs-5 filter" value="Korean">Korean</Option>
+            <Option class="text-start fs-5 filter" value="Mediterranean">Mediterranean</Option>
+            <Option class="text-start fs-5 filter" value="Mexican">Mexican</Option>
+            <Option class="text-start fs-5 filter filter" value="Middle Eastern">Middle Eastern</Option>
+            <Option class="text-start fs-5 filter" value="Seafood">Seafood</Option>
+            <Option class="text-start fs-5 filter" value="Thai">Thai</Option>
+            <Option class="text-start fs-5 filter" value="Vegetarian/Vegan">Vegetarian/Vegan</Option>
 
         </select>        
-        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="category">
+        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="category">
             <Option class="text-start fs-5" value="">Category</Option>
-            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
-            <Option class="text-start fs-5">Bakery</Option>
-            <Option class="text-start fs-5">Barbecue</Option>
-            <Option class="text-start fs-5">Buffet</Option>
-            <Option class="text-start fs-5">Café</Option>
-            <Option class="text-start fs-5">Casual Dining</Option>
-            <Option class="text-start fs-5">Dessert Spot</Option>
-            <Option class="text-start fs-5">Diner</Option>
-            <Option class="text-start fs-5">Fast Food</Option>
-            <Option class="text-start fs-5">Fine Dining</Option>
-            <Option class="text-start fs-5">Food Truck</Option>
-            <Option class="text-start fs-5">Sushi Bar</Option>
-            <Option class="text-start fs-5">Steakhouse</Option>
-            <Option class="text-start fs-5">Vegan/Vegetarian</Option>
+            <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+            <Option class="text-start fs-5 filter" value="Bakery">Bakery</Option>
+            <Option class="text-start fs-5 filter" value="Barbecue">Barbecue</Option>
+            <Option class="text-start fs-5 filter" value="Buffet">Buffet</Option>
+            <Option class="text-start fs-5 filter" value="Café">Café</Option>
+            <Option class="text-start fs-5 filter" value="Casual Dining">Casual Dining</Option>
+            <Option class="text-start fs-5 filter" value="Dessert Spot">Dessert Spot</Option>
+            <Option class="text-start fs-5 filter" value="Diner">Diner</Option>
+            <Option class="text-start fs-5 filter" value="Fast Food">Fast Food</Option>
+            <Option class="text-start fs-5 filter" value="Fine Dining">Fine Dining</Option>
+            <Option class="text-start fs-5 filter" value="Food Truck">Food Truck</Option>
+            <Option class="text-start fs-5 filter" value="Sushi Bar">Sushi Bar</Option>
+            <Option class="text-start fs-5 filter" value="Steakhouse">Steakhouse</Option>
+            <Option class="text-start fs-5 filter" value="Vegan/Vegetarian">Vegan/Vegetarian</Option>
 
 
         </select>
-        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="vibe" aria-label="Select vibe">
+        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="vibe" aria-label="Select vibe">
             <Option class="fs-5 text-start rounded-4" value="">Vibe</Option>
-            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
-            <Option class="text-start fs-5">Cozy</Option>
-            <Option class="text-start fs-5">Romantic</Option>
-            <Option class="text-start fs-5">Casual</Option>
-            <Option class="text-start fs-5">Quiet</Option>
-            <Option class="text-start fs-5">Outdoor</Option>
-            <Option class="text-start fs-5">Romantic</Option>
-            <Option class="text-start fs-5">Festive</Option>
-            <Option class="text-start fs-5">Sporty/pub-like</Option>
-            <Option class="text-start fs-5">Family-friendly</Option>
-            <Option class="text-start fs-5">Business-friendly</Option>
+            <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+            <Option class="text-start fs-5 filter" value="Cozy">Cozy</Option>
+            <Option class="text-start fs-5 filter" value="Romantic">Romantic</Option>
+            <Option class="text-start fs-5 filter" value="Casual">Casual</Option>
+            <Option class="text-start fs-5 filter" value="Quiet">Quiet</Option>
+            <Option class="text-start fs-5 filter" value="Outdoor">Outdoor</Option>
+            <Option class="text-start fs-5 filter" value="Festive">Festive</Option>
+            <Option class="text-start fs-5 filter" value="Sporty/pub-like">Sporty/pub-like</Option>
+            <Option class="text-start fs-5 filter" value="Family-friendly">Family-friendly</Option>
+            <Option class="text-start fs-5 filter" value="Business-friendly">Business-friendly</Option>
         </select>
-        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-tertiary text-center align-items-center" id="amenities" aria-label="Amenities">
+        <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="amenities" aria-label="Amenities">
             <Option class="fs-5 text-start rounded-4" value="">Amenities</Option>
-            <Option class="text-start fs-5 btn btn-dark rounded-4" value="">Clear</Option>
-            <Option class="text-start fs-5">Free Wi-Fi</Option>
-            <Option class="text-start fs-5">Parking</Option>
-            <Option class="text-start fs-5">Takeaway</Option>
-            <Option class="text-start fs-5">Outdoor seating</Option>
-            <Option class="text-start fs-5">Card & mobile</Option>
-            <Option class="text-start fs-5">Live entertainment</Option>
+            <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+            <Option class="text-start fs-5 filter" value="Free Wi-Fi">Free Wi-Fi</Option>
+            <Option class="text-start fs-5 filter" value="Parking">Parking</Option>
+            <Option class="text-start fs-5 filter" value="Takeaway">Takeaway</Option>
+            <Option class="text-start fs-5 filter" value="Outdoor seating">Outdoor seating</Option>
+            <Option class="text-start fs-5 filter" value="Card & mobile">Card & mobile</Option>
+            <Option class="text-start fs-5 filter" value="Live entertainment">Live entertainment</Option>
         </select>
-            <input type="text" class="d-none d-lg-block border border-1 rounded-pill d-flex ps-3 py-2 fs-5 ms-2 col-lg-2 col-8" placeholder="Search by location" id="search">            
+            <input type="text" class="d-none d-lg-block border border-1 rounded-pill d-flex ps-3 py-2 ms-2 col-lg-2 col-8" placeholder="Search by location" id="search" style="font-size: 20px;">            
     </div>
     <div class="row mt-2 d-lg-none">
         <input type="text" class="border border-1 rounded-pill ps-3 py-2 fs-5 ms-2 col-lg-3 col-8" placeholder="Search by location" id="search">            
@@ -116,9 +115,10 @@
             <a href="/user/restaurant/<%= row.id %>" class="col-lg-3 col-md-6 col-12 mb-3 restaurant" style="text-decoration: none;"
                 data-cuisine="<%= row.cuisine %>"
                 data-category="<%= row.category %>"
-                data-vibe="<%= row.vibe %>">
+                data-vibe="<%= row.vibe %>"
+                data-amenities="<%= row.amenities %>">
           <div class="card w-100 rounded-4">
-              <link rel="preload" href="#" as="image">
+              <!-- <link rel="preload" href="#" as="image"> -->
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNjCf0E0w1f_faSBhmSnS4XX2RVfBDp5_8Q&s" class="card-img-top bg-danger-subtle" alt=""
               loading="lazy">
               <div class="card-body">
@@ -130,6 +130,8 @@
     <%- include('./partials/footer') %>    
 </body>
     <script>
+        const filterOptions = document.querySelectorAll('.filter')
+        const filters = Array.from(filterOptions)
         document.addEventListener("DOMContentLoaded", () => {
             const restaurantList = document.getElementById('restaurants')
             const counter = document.querySelector('.counter')
@@ -141,7 +143,29 @@
             
             let count = 0
             const restaurants = Array.from(restaurantList.getElementsByClassName('restaurant'))
-
+            
+            async function filterData(type, filter) {
+                const Data = {
+                    type : type,
+                    filter : filter,
+                    date : new Date()
+                }
+                const options = {
+                    method : 'POST',
+                    headers : {
+                        'Content-type' : 'application/json'
+                    },
+                    body : JSON.stringify(Data)
+                }
+                try {
+                    const response = await fetch('/user/filters', options)
+                    const data = await response.json()
+                    console.log(data)
+                } catch (error) {
+                    console.log('Failed to send that shiiii', error)
+                }
+            }
+            
             function filter() {
                 const cuisine = cuisineFilter.value.toLowerCase()
                 const category = categoryFilter.value.toLowerCase()
@@ -152,7 +176,7 @@
                     const matchCuisine = cuisine ? restaurant.dataset.cuisine.toLowerCase().includes(cuisine) : true
                     const matchCategory = category ? restaurant.dataset.category.toLowerCase().includes(category) : true
                     const matchVibe = vibe ? restaurant.dataset.vibe.toLowerCase().includes(vibe) : true
-                    const matchAmenities = amenities ? restaurant.dataset.vibe.toLowerCase().includes(amenities) : true
+                    const matchAmenities = amenities ? restaurant.dataset.amenities.toLowerCase().includes(amenities) : true
                     const matchSearch = search ? restaurant.textContent.toLowerCase().includes(search) : true
                     const matchAll = matchCuisine && matchCategory && matchVibe && matchAmenities && matchSearch
 
@@ -165,6 +189,12 @@
                     counter.textContent = `${count} restaurants available`
                 }   
                 count = 0
+
+                
+                if (cuisine) filterData('cuisine', cuisine)
+                if (category) filterData('category', category)
+                if (vibe) filterData('vibe', vibe)
+                if (amenities) filterData('amenities', amenities)
             }
             function debounce(fn, delay) {
                 let timeout;
@@ -172,13 +202,23 @@
                     clearTimeout(timeout);
                     timeout = setTimeout(() => fn(...args), delay);
                 };
+            }          
+
+            function clear(f) {
+                if (f.value === "clear") {
+                    // Reset to default "Cuisine"
+                    f.value = ""
+                    filter()
+                } else {
+                    filter()
+                }
             }
             
-            cuisineFilter.addEventListener("change", filter)
-            categoryFilter.addEventListener("change", filter)
-            vibeFilter.addEventListener("change", filter)
-            amenitiesFilter.addEventListener("change", filter)
+            cuisineFilter.addEventListener("change", () => {clear(cuisineFilter)})
+            categoryFilter.addEventListener("change", () => {clear(categoryFilter)})
+            vibeFilter.addEventListener("change", () => {clear(vibeFilter)})
+            amenitiesFilter.addEventListener("change", () => {clear(amenitiesFilter)})
             searchBar.addEventListener("input", debounce(filter, 50));
-        })
+        }) 
     </script>
 </html>
