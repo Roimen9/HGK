@@ -48,10 +48,15 @@ const handler = {
                     if(!same) return res.json('Invalid username or password')
                     const token = jwt.sign({user : row}, 'token-secret')
                     res.cookie('jwt', token, {maxAge : 86400000}).json({user : row})
-        })
-        db.close(error => {
-        if (error) return console.log('Failed to close database', error)
-            console.log('Database closed successfully')
+                    const query = 'INSERT INTO logtimes(timestamp)VALUES(?)'
+                    db.run(query, [body.date], (error) => {
+                        if (error) return console.log("There was a problem inserting the data in the database", error)
+                            console.log("Data entered successfully")
+                    })
+                    db.close(error => {
+                    if (error) return console.log('Failed to close database', error)
+                        console.log('Database closed successfully')
+                    })
         })
     },
     verifyUser : (req, res, next) => {

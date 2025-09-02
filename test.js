@@ -28,7 +28,7 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-// const query = 'DROP TABLE saved'
+// const query = 'DROP TABLE logtimes'
 // db.run(query, (error) => {
 //     if (error) return console.log('There was a problem deletingthe table', error)
 //         console.log('Table deleted successfully')
@@ -128,7 +128,7 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 // console.log(date.toDateString())
 
 
-// const query = 'CREATE TABLE logtimes(id INTEGERS PRIMARY KEY, timestamp DATETIME)'
+// const query = 'CREATE TABLE logtimes(id INTEGER PRIMARY KEY, timestamp)'
 // db.run(query, (error) => {
 //     if (error) return console.log('There was a problem creating the table', error)
 //         console.log('Table create successfully')
@@ -155,3 +155,16 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 
 // const date = new Date()
 // console.log(date)
+
+// const query = 'CREATE TABLE offerDetails(id INTEGER PRIMARY KEY, restaurant_id, description, image, status, start, end, views)'
+// db.run(query, (error) => {
+//     if (error) return console.log('There was a problem creatingthe table', error)
+//         console.log('Table created successfully')
+// })
+
+// const query = "SELECT name FROM sqlite_master WHERE type='table'"
+// db.all(query, (error, rows) => {
+//     if (error) return console.log('There was a problem creatingthe table', error)
+//         console.log('Table created successfully',rows)
+// })
+
