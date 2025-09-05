@@ -76,7 +76,7 @@ const handler = {
             jwt.verify(token, 'token-secret', (error, decoded) => {
                 if (error) return res.render('access')
                     req.user = decoded
-                    console.log(req.user)
+                    // console.log(req.user)
                     if (req.user.user.role !== 'admin') return res.render('denied')   
                         next() 
             })

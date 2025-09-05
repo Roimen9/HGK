@@ -52,36 +52,33 @@
                 <img src="https://s7ap1.scene7.com/is/image/tatamotors/sunlit-yellow-left?$VH-708-500-D$&fit=crop&fmt=webp-alpha" alt="" class="w-100">
             </div>
         </div>
-        <% let number = 0 %>
-        <% rows.forEach(row => { %>
-            <% if (row.offer) { %>
-            <% number++ %>
-            <% } %>
-        <% }) %>
-        <h2 class="text-center mt-5 pt-5 mb-5">
-            <%= number === 1 
-                ? '1 restaurant has an ongoing offer' 
-                : number > 1 
-                    ? `${number} restaurants have ongoing offers` 
-                    : '' 
-            %>
-        </h2>
-        <div class="row">            
+        <% if(rows){ %>
+            <% let number = 0 %>
             <% rows.forEach(row => { %>
-            <% if (row.offer) { %>
-                <a href="/user/restaurant/<%= row.id %>" class="col-lg-3 col-md-6 col-12 mb-3 restaurant" style="text-decoration: none;">
-                    <div class="card w-100 rounded-4">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNjCf0E0w1f_faSBhmSnS4XX2RVfBDp5_8Q&s"
-                            class="card-img-top bg-danger-subtle" alt="" loading="lazy">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= row.name %></h5>
+                <% number++ %>
+            <% }) %>
+            <h2 class="text-center mt-5 pt-5 mb-5">
+                <%= number === 1 
+                    ? '1 restaurant has an ongoing offer' 
+                    : number > 1 
+                        ? `${number} restaurants have ongoing offers` 
+                        : '' 
+                %>
+            </h2>
+            <div class="row">            
+                <% rows.forEach(row => { %>
+                    <a href="/user/restaurant/<%= row.id %>" class="col-lg-3 col-md-6 col-12 mb-3 restaurant" style="text-decoration: none;">
+                        <div class="card w-100 rounded-4">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfNjCf0E0w1f_faSBhmSnS4XX2RVfBDp5_8Q&s"
+                                class="card-img-top bg-danger-subtle" alt="" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= row.name %></h5>
+                            </div>
                         </div>
-                        <div class="offer"><%= row.offer %></div> <!-- Moved inside .card -->
-                    </div>
-                </a>
-            <% } %>
-       <% }) %>
-        </div> 
+                    </a>
+                <% }) %>
+            </div> 
+        <% } %>
     </div>
     <%- include('./partials/footer') %>
 </body>

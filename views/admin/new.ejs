@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-body-light">
   <%- include('../partials/admin-header') %>
     <div class="container mt-5 mb-5 p-5">
         <h3 class="text fs-2 mt-3">New Restaurant</h3>
@@ -119,34 +119,52 @@
             password += chars[randomIndex];
         }
         console.log(password)
-        const restaurant = {
-            name : document.querySelector('.name').value,
-            number : document.querySelector('.number').value,
-            email : document.querySelector('.email').value,
-            instagram : document.querySelector('.instagram').value,
-            description : document.querySelector('.description').value,
-            vibe : document.querySelector('.vibe').value,
-            category : document.querySelector('.category').value,
-            cuisine : document.querySelector('.cuisine').value,
-            Location : document.querySelector('.location').value,
-            password : password,
-            offer : ''
-        }
+        // const restaurant = {
+        //     name : document.querySelector('.name').value,
+        //     number : document.querySelector('.number').value,
+        //     email : document.querySelector('.email').value,
+        //     instagram : document.querySelector('.instagram').value,
+        //     description : document.querySelector('.description').value,
+        //     vibe : document.querySelector('.vibe').value,
+        //     category : document.querySelector('.category').value,
+        //     cuisine : document.querySelector('.cuisine').value,
+        //     Location : document.querySelector('.location').value,
+        //     password : password,
+        //     offer : ''
+        // }
+
+        const form = new FormData()
+        form.append('name', document.querySelector('.name').value)
+        form.append('number', document.querySelector('.number').value)
+        form.append('email', document.querySelector('.email').value)
+        form.append('instagram', document.querySelector('.instagram').value)
+        form.append('description', document.querySelector('.description').value)
+        form.append('vibe', document.querySelector('.vibe').value)
+        form.append('category', document.querySelector('.category').value)
+        form.append('cuisine', document.querySelector('.cuisine').value)
+        form.append('location', document.querySelector('.location').value)
+        form.append('password', password)
+
+        const ids = ['image1', 'image2', 'image3', 'image4', 'image5', 'menu1', 'menu2', 'menu3', 'menu4', 'menu5']
+        ids.forEach(id => {
+          const file = document.getElementById(id)
+          console.log(file.files)
+          if(file.files.length > 0) {
+            form.append(id, file.files[0])
+          }
+        })
 
         const options = {
           method : 'POST',
-          headers : {
-            'Content-type' : 'application/json'
-          },
-          body : JSON.stringify(restaurant)
+          body : form
         }
 
         try {
           const response = await fetch('/admin/add', options)
-          // console.log(response)
-          if (!response.ok) return new Error('Internal server error')
-            const data = await response.json()
-          info.style.color = 'green'
+          if (!response.ok) throw new Error('Internal server error')
+          const data = await response.json()
+          console.log(data)
+            info.style.color = 'green'
             info.textContent = data
             // setTimeout(() => {
             //   location.assign('/')

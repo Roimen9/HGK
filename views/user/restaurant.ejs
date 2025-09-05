@@ -20,9 +20,9 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-body-light">
     <%- include('../partials/user-header') %>
-    <div class="container mt-5 pt-3">
+    <div class="container mt-5 pt-4">
         <div class="row align-items-start">
             <div id="carouselExampleIndicator" class="carousel slide col-lg-6 col-12 mb-lg-0 mb-2 mt-5">
                 <div class="carousel-indicators">
@@ -122,8 +122,8 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-                <div class="offer" style="display: none;"><%= row.offer %></div>
-                <input type="text" class="views" style="display: none;" value="<%= row.views %>">               
+                <!-- <div class="offer" style="display: none;"></div> -->
+                <!-- <input type="text" class="views" style="display: none;" value="">                -->
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -135,7 +135,7 @@
                         </div>
                         
                         <div class="modal-body pb-5 text-secondary text-center fs-5" style="overflow-wrap: anywhere;">
-                            <%= row.offer %>
+                            
                         </div>
                         </div>
                     </div>

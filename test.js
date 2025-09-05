@@ -47,11 +47,11 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data inserted successfully')
 // })
 
-// const query = 'SELECT * FROM filters'
-// db.all(query, (error, rows) => {
-//     if (error) return console.log('There was a problem retrieving the data', error)
-//         console.log('Data retrieved successfull', rows)
-// })
+const query = 'SELECT * FROM users'
+db.all(query, (error, rows) => {
+    if (error) return console.log('There was a problem retrieving the data', error)
+        console.log('Data retrieved successfull', rows)
+})
 
 // const query = 'INSERT INTO saved(user'
 // db.run(query, [2,7], (error) => {
@@ -59,13 +59,10 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Data deleted successfully')
 // })
 
-// const users = []
-// users.forEach(user => {
-//     const query = 'DELETE FROM users WHERE username = ?'
-//     db.run(query, [user],(error) => {
-//     if (error) return console.log('There was a problem deleting the data from the database')
-//         console.log('Data deleted successfully')
-//     })
+// const query = 'DELETE FROM offerDetails'
+// db.run(query, (error) => {
+// if (error) return console.log('There was a problem deleting the data from the database')
+//     console.log('Data deleted successfully')
 // })
 
 // const query = 'CREATE TABLE offerViews(id INTEGER PRIMARY KEY, timestamp, views)'
@@ -79,7 +76,7 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Table altered successfully')
 // })
 
-// const query = 'ALTER TABLE users ADD COLUMN timestamp DATETIME'
+// const query = 'DROP TABLE offerDetails'
 // db.run(query, (error) => {
 //     if (error) return console.log('FailEd to alter table', error)
 //         console.log('Table altered successfully')
@@ -168,3 +165,41 @@ const db = new sqlite.Database('./db', sqlite.OPEN_READWRITE, (error) => {
 //         console.log('Table created successfully',rows)
 // })
 
+// HiddenGemsKenya
+// Home
+// Restaurants
+// New
+// Dashboard
+// New Restaurant
+// Name
+// Nyama villa
+// Vibe
+// cozy, casual, business-friendly, family-friendly
+// Menu 1pexels-pixabay-262047.jpg
+// Image 1pexels-pixabay-262047.jpg
+// Number
+// 011315268
+// Category
+// barbecue, stakehouse
+// Menu 2pexels-pixabay-262047.jpg
+// Image 2pexels-pixabay-262047.jpg
+// Email
+// roimenryan@gmail.com
+// Cuisine
+// African
+// Menu 3pexels-pixabay-262047.jpg
+// Image 3pexels-pixabay-262047.jpg
+// Instagram
+// https://www.instagram.com/accounts/onetap/?next=%2F%40y.b.n_ryan%2F
+// Location
+// https://www.google.com/maps/place/Nyama+Villa/@-1.283319,36.8956601,15z/data=!4m6!3m5!1s0x182f147e51457309:0x5be284241c740dab!8m2!3d-1.2759746!4d36.9088295!16s%2Fg%2F1tctty66?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D
+// Menu 4pexels-pixabay-262047.jpg
+// Image 4pexels-pixabay-262047.jpg
+// Description
+// At Nyama Villa, barbecue isn’t just food – it’s an experience. We specialize in slow-smoked meats, grilled to perfection over wood and fire, bringing out rich, authentic flavors that capture the true spirit of barbecue. From tender fall-off-the-bone ribs to juicy brisket and perfectly charred chicken, every bite is made to satisfy.
+
+// Our rustic, welcoming atmosphere makes Nyama Villa the perfect spot for family gatherings, casual hangouts, or a hearty meal with friends. Pair your favorite cuts with our signature sauces and classic sides, and discover why we’re the home of unforgettable barbecue moments.
+
+// Come hungry, leave happy – that’s the Nyama Villa promise.
+// Menu 5pexels-pixabay-262047.jpg
+// Image 5pexels-pixabay-262047.jpg

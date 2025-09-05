@@ -2,17 +2,21 @@ const sqlite = require('sqlite3')
 const nodemailer = require('nodemailer')
 const {promisify} = require('util')
 const bcrypt = require('bcrypt')
-const { error } = require('console')
 const handler = {
     newRestaurant : (req, res) => {
         const body = req.body
+        const files = req.files
+        const images = req.images
+        console.log('hizi ni body attributes', body)
+        console.log('hizi ni images', images)
+        console.log('hizi ni files', files)
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
         if (error) return console.log('There was a problem connecting to the database', error)
             console.log('Connected to the database succcessfully')
         })
 
-        const query = 'INSERT INTO restaurants(name, description, cuisine, category, vibe, location, number, email, instagram, offer) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        db.run(query, [body.name, body.description, body.cuisine, body.category, body.vibe, body.location, body.number, body.email, body.instagram, body.offer], (error) => {
+        const query = 'INSERT INTO restaurants(name, description, cuisine, category, vibe, location, number, email, instagram, image1, image2, image3, image4, image5, menu1, menu2, menu3, menu4, menu5) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        db.run(query, [body.name, body.description, body.cuisine, body.category, body.vibe, body.location, body.number, body.email, body.instagram, images.image1, images.image2, images.image3, images.image4, images.image5, images.menu1, images.menu2, images.menu3, images.menu4, images.menu5], (error) => {
             if (error) return console.log('There was a problem inserting the data into the database', error)
                 console.log('Data inserted into the database successfully')
                 console.log(body.password)
@@ -271,6 +275,7 @@ const handler = {
     },
     restaurantDashboard : (req, res) => {
         const email = req.user.user.email
+        console.log(email)
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error)=> {
             if (error) return console.log('There was a problem connecting to the database', error)
                 console.log('Connected to the database successfully')
@@ -285,28 +290,52 @@ const handler = {
                     if (error) return console.log('There was a problem retrieving the data from the database')
                         console.log('Data retrieved successfully', rows)
                         const number = rows.length
-                        res.render('dashboard', {user : row, number : number})
+                        const query = 'SELECT * FROM offerDetails WHERE restaurant_id = ? and status = ?'
+                        db.all(query, [String(row.id)
+                            , 'ongoing'], (error, offers) => {
+                            if (error) return console.log('There was a problem retrieving the data')
+                                console.log('Data retrieved successfully',offers)
+                                res.render('dashboard', {user : row, number : number, offers : offers})
+                        })
                 })
         })
     },
-    updateOffer : (req, res) => {
+    offer : (req, res) => {
         const body = req.body
         console.log(body)
         const id = req.params.id
         const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
-            if (error) return console.log('There was a problemconnectingto the database', error)
+            if (error) return console.log('There was a problem connecting to the database', error)
                 console.log('Connected to the database successfully')
         })
 
-        const query = 'UPDATE restaurants SET offer = ?, views = ? WHERE id = ?'
-        db.run(query, [body.offer, 0, id], (error) => {
-            if (error) return console.log('Failed to update the data inthe database', error)
-                console.log('Data updated successfully')
-                res.json('Offer updated successfully')
+        const query = 'INSERT INTO offerDetails(restaurant_id, description, image, status, start, end, views)VALUES(?, ?, ?, ?, ?, ?, ?)'
+        db.run(query, [id, body.description, null, 'ongoing', body.start, null, null], (error) => {
+            if (error) return console.log('Failed to insert the data in the database', error)
+                console.log('Data inserted successfully')
+                res.json('Offer created successfully')
         })
 
         db.close(error => {
             if (error) return console.log('Failed to close the database', error)
+                console.log('Database closed successfully')
+        })
+    },
+    deleteOffer : (req, res) => {
+        const id = req.params.id
+        const body = req.body
+        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
+            if (error) return console.log('There was a problem connecting to the database', error)
+                console.log('Connected to the databse successfully')
+        })
+        const query = 'UPDATE offerDetails SET status = ?, end = ? WHERE start = ?'
+        db.run(query, ['expired', body.expiry, id], (error) => {
+            if (error) return console.log('There was a problem  updating the data in the database', error)
+                console.log('Data updated successfully')
+                res.json('Offer deleted successfully')
+        })
+        db.close(error => {
+            if (error) return console.log('There was a problem closing the database',error)
                 console.log('Database closed successfully')
         })
     },
@@ -316,11 +345,29 @@ const handler = {
             console.log('Connected to the database succcessfully')
         })
 
-        const query = 'SELECT * FROM restaurants'
-        db.all(query, (error, rows) => {
+        const ids = []
+        const query = 'SELECT * FROM offerDetails WHERE status = ?'
+        db.all(query, ['ongoing'], (error, rows) => {
             if (error) return console.log("There was a problem retrieving the data from the database", error)
-                console.log('Data retrieved successfully')
-                res.render('home', {rows})
+                console.log('Data retrieved successfully', rows)
+                rows.forEach(row => {
+                    let num = Number(row.restaurant_id)
+                    if(!ids.includes(num)) {
+                        ids.push(num)
+                    }
+                })
+                if(ids) {
+                    ids.forEach(id => {
+                        const query = 'SELECT * FROM restaurants WHERE id = ?'
+                        db.all(query, [id], (error, restaurants) => {
+                            if (error) return console.log('There was a problem retrieving the data from the database', error)
+                                console.log('Data retrieved successfully')
+                                res.render('home', {rows : restaurants})
+                                
+                        })
+                    })
+                }
+                res.render('home', {rows : ''})
         })
     },
     offerSectionLogged : (req, res) => {
@@ -329,24 +376,28 @@ const handler = {
             console.log('Connected to the database succcessfully')
         })
 
-        const query = 'SELECT * FROM restaurants'
-        db.all(query, (error, rows) => {
+        const ids = []
+        const query = 'SELECT * FROM offerDetails WHERE status = ?'
+        db.all(query, ['ongoing'], (error, rows) => {
             if (error) return console.log("There was a problem retrieving the data from the database", error)
-                console.log('Data retrieved successfully')
-                res.render('user/home', {rows, user : req.user.user})
-        })
-    },
-    offerSectionAdmin : (req, res) => {
-        const db = new sqlite.Database('db', sqlite.OPEN_READWRITE, (error) => {
-        if (error) return console.log('There was a problem connecting to the database', error)
-            console.log('Connected to the database succcessfully')
-        })
-
-        const query = 'SELECT * FROM restaurants'
-        db.all(query, (error, rows) => {
-            if (error) return console.log("There was a problem retrieving the data from the database", error)
-                console.log('Data retrieved successfully')
-                res.render('admin/home', {rows, user : req.user.user})
+                console.log('Data retrieved successfully', rows)
+                rows.forEach(row => {
+                    let num = Number(row.restaurant_id)
+                    if(!ids.includes(num)) {
+                        ids.push(num)
+                    }
+                })
+                if(ids) {
+                    ids.forEach(id => {
+                        const query = 'SELECT * FROM restaurants WHERE id = ?'
+                        db.all(query, [id], (error, restaurants) => {
+                            if (error) return console.log('There was a problem retrieving the data from the database', error)
+                                console.log('Data retrieved successfully')
+                                req.user.user.role !== 'admin' ? res.render('user/home', {user : req.user.user, rows : restaurants}) : res.render('admin/home', {user : req.user.user, rows : restaurants})
+                        })
+                    })
+                }
+                (req.user.user.role !== 'admin') ? res.render('user/home', {user : req.user.user, rows : ''}) : res.render('admin/home', {user : req.user.user, rows : ''})
         })
     },
     viewed : (req, res) => {
