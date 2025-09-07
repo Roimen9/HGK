@@ -122,24 +122,24 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-                <!-- <div class="offer" style="display: none;"></div> -->
+                <div class="offer" style="display: none;"><%= offers %></div>
                 <!-- <input type="text" class="views" style="display: none;" value="">                -->
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 shadow-lg rounded-3" style="background-color: #fff;">
-                        
-                        <div class="modal-header border-0 pb-1">
-                            <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Offer</h1>
-                            <button type="button" class="btn-close shadow-none view" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        
-                        <div class="modal-body pb-5 text-secondary text-center fs-5" style="overflow-wrap: anywhere;">
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow-lg rounded-3" style="background-color: #fff;">
                             
-                        </div>
+                            <div class="modal-header border-0 pb-1">
+                                <% if(offers){ %>
+                                    <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel"><%= offers.length %> ongoing <%= offers.length === 1 ? 'offer' : 'offers' %></h1>
+                                <% } %>
+                                <button type="button" class="btn-close shadow-none view" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            
+                            <div class="modal-body bg-transparent text-secondary text-center fs-5 d-flex justify-content-center" style="overflow-wrap: anywhere;"><%- include('../partials/modal', {offers : offers}) %></div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

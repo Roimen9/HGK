@@ -99,10 +99,15 @@ const handler = {
         })
 
         const query = 'SELECT * FROM restaurants WHERE id = ?'
-        db.get(query, [id], (error, row) => {
+        db.get(query, [id], (error, details) => {
             if (error) return console.log('Failed to retrieve data from the database', error)
                 console.log('Data retrieved successfully')
-                res.render('user/restaurant', {row})
+                const query = 'SELECT * FROM offerDetails WHERE restaurant_id = ? and status = ?'
+                db.all(query, [String(id), 'ongoing'], (error, row) => {
+                    if (error) return console.log('There was a problem retrieving the data from the database', error)
+                        console.log('Data retrieved successfully', row)
+                        res.render('user/restaurant', {row : details, offers : row})
+                })
         })
     },
     displaySavedRestaurant : (req, res) => {
@@ -366,8 +371,9 @@ const handler = {
                                 
                         })
                     })
+                } else {
+                    res.render('home', {rows : null})
                 }
-                res.render('home', {rows : ''})
         })
     },
     offerSectionLogged : (req, res) => {
@@ -396,8 +402,9 @@ const handler = {
                                 req.user.user.role !== 'admin' ? res.render('user/home', {user : req.user.user, rows : restaurants}) : res.render('admin/home', {user : req.user.user, rows : restaurants})
                         })
                     })
+                } else {
+                    (req.user.user.role !== 'admin') ? res.render('user/home', {user : req.user.user, rows : null}) : res.render('admin/home', {user : req.user.user, rows : null})
                 }
-                (req.user.user.role !== 'admin') ? res.render('user/home', {user : req.user.user, rows : ''}) : res.render('admin/home', {user : req.user.user, rows : ''})
         })
     },
     viewed : (req, res) => {

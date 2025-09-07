@@ -175,4 +175,36 @@
     </script>
 </html>
 
-                        <h4 class="fs-4 p-3 text-center  text-secondary"><%= user.views %> <%= user.views === 1 ? 'user' : 'users' %></h4>
+<h4 class="fs-4 p-3 text-center  text-secondary"><%= user.views %> <%= user.views === 1 ? 'user' : 'users' %></h4>
+
+
+<% offers.forEach(offer => { %>
+    <div class="carousel-inner gap-5">
+        <% if(offer.image) { %>
+            <div class="carousel-item active">
+            <img src="<%= offer.image %>" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+            </div>
+        <% } else { %>
+            <div class="carousel-inner gap-5">
+                <div class="carousel-item active">
+                    <div class=" pb-5 text-secondary text-center fs-5" style="overflow-wrap: anywhere;"><%= offer.description %></div>
+                </div>
+            </div>                                            
+        <% } %>
+    </div>
+<% }) %>
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden d-none">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+</button>
+<div class="modal-body pb-5 text-secondary text-center fs-5" style="overflow-wrap: anywhere;"></div>
+
+
+
+
+
+

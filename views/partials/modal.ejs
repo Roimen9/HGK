@@ -1,0 +1,35 @@
+<div id="carouselExample" class="carousel slide col-lg-6 col-12 mb-lg-0 mb-2 mt-2">
+    <div class="carousel-indicators">
+        <% offers.forEach((offer, index) => { %>
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>" aria-current="<%= index === 0 ? 'true' : '' %>" aria-label="Slide <%= index + 1 %>" style="border-radius: 50%; height: 8px; width: 8px; background-color: black;"></button>
+        <% }) %>
+<!--         
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="3" aria-label="Slide 4" style="border-radius: 50%; height: 8px; width: 8px;"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="4" aria-label="Slide 5" style="border-radius: 50%; height: 8px; width: 8px;"></button> -->
+    </div>
+    <div class="carousel-inner gap-5">
+        <% console.log('Here are the offers', offers) %>
+        <% offers.forEach((offer, index) => { %>
+            <% console.log(index) %>
+            <% if(!offer.image) { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIDryKJTCtZwD89iitC4pIfkjKUX7DmZzvWg&s" class="d-block w-100 card-img-top bg-danger-subtle rounded-4" alt="" loading="lazy">
+                </div>
+            <% } else { %>
+                <div class="carousel-item card col-lg-5 col-md-5 col-10 p-1 rounded-4 shadow border border-dark-subtle border-1 mb-1 <%= index === 0 ? 'active' : '' %>">
+                    <h4 class="fs-5 pt-3 text-center text-secondary  d-block w-100"><%= offer.description %></h4>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="bi bi-chevron-left fs-3 text-dark"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="bi bi-chevron-right fs-3 text-dark"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

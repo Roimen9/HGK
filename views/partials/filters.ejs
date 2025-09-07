@@ -1,0 +1,72 @@
+<div class="mt-4 d-flex flex-row gap-3 align-items-center" style="overflow-x: scroll; scroll-behavior: smooth; scrollbar-width: none;">
+    <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="cuisine" aria-label="Select cuisine">
+        <Option class="fs-5 text-start rounded-4" value="">Cuisine</Option>
+        <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+        <Option class="text-start fs-5 filter" value="African">African</Option>
+        <Option class="text-start fs-5 filter" value="American">American</Option>
+        <Option class="text-start fs-5 filter" value="Caribbean">Caribbean</Option>
+        <Option class="text-start fs-5 filter" value="Chinese">Chinese</Option>
+        <Option class="text-start fs-5 filter" value="French">French</Option>
+        <Option class="text-start fs-5 filter" value="Fusion">Fusion</Option>
+        <Option class="text-start fs-5 filter" value="Indian">Indian</Option>
+        <Option class="text-start fs-5 filter" value="Italian">Italian</Option>
+        <Option class="text-start fs-5 filter" value="Japanese">Japanese</Option>
+        <Option class="text-start fs-5 filter" value="Korean">Korean</Option>
+        <Option class="text-start fs-5 filter" value="Mediterranean">Mediterranean</Option>
+        <Option class="text-start fs-5 filter" value="Mexican">Mexican</Option>
+        <Option class="text-start fs-5 filter filter" value="Middle Eastern">Middle Eastern</Option>
+        <Option class="text-start fs-5 filter" value="Seafood">Seafood</Option>
+        <Option class="text-start fs-5 filter" value="Thai">Thai</Option>
+        <Option class="text-start fs-5 filter" value="Vegetarian/Vegan">Vegetarian/Vegan</Option>
+
+    </select>        
+    <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="category">
+        <Option class="text-start fs-5" value="">Category</Option>
+        <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+        <Option class="text-start fs-5 filter" value="Bakery">Bakery</Option>
+        <Option class="text-start fs-5 filter" value="Barbecue">Barbecue</Option>
+        <Option class="text-start fs-5 filter" value="Buffet">Buffet</Option>
+        <Option class="text-start fs-5 filter" value="Café">Café</Option>
+        <Option class="text-start fs-5 filter" value="Casual Dining">Casual Dining</Option>
+        <Option class="text-start fs-5 filter" value="Dessert Spot">Dessert Spot</Option>
+        <Option class="text-start fs-5 filter" value="Diner">Diner</Option>
+        <Option class="text-start fs-5 filter" value="Fast Food">Fast Food</Option>
+        <Option class="text-start fs-5 filter" value="Fine Dining">Fine Dining</Option>
+        <Option class="text-start fs-5 filter" value="Food Truck">Food Truck</Option>
+        <Option class="text-start fs-5 filter" value="Sushi Bar">Sushi Bar</Option>
+        <Option class="text-start fs-5 filter" value="Steakhouse">Steakhouse</Option>
+        <Option class="text-start fs-5 filter" value="Vegan/Vegetarian">Vegan/Vegetarian</Option>
+
+
+    </select>
+    <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="vibe" aria-label="Select vibe">
+        <Option class="fs-5 text-start rounded-4" value="">Vibe</Option>
+        <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+        <Option class="text-start fs-5 filter" value="Cozy">Cozy</Option>
+        <Option class="text-start fs-5 filter" value="Romantic">Romantic</Option>
+        <Option class="text-start fs-5 filter" value="Casual">Casual</Option>
+        <Option class="text-start fs-5 filter" value="Quiet">Quiet</Option>
+        <Option class="text-start fs-5 filter" value="Outdoor">Outdoor</Option>
+        <Option class="text-start fs-5 filter" value="Festive">Festive</Option>
+        <Option class="text-start fs-5 filter" value="Sporty/pub-like">Sporty/pub-like</Option>
+        <Option class="text-start fs-5 filter" value="Family-friendly">Family-friendly</Option>
+        <Option class="text-start fs-5 filter" value="Business-friendly">Business-friendly</Option>
+    </select>
+    <select class="fs-5 border border-1 py-1 px-3 rounded-pill bg-body-light text-center align-items-center" id="amenities" aria-label="Amenities">
+        <Option class="fs-5 text-start rounded-4" value="">Amenities</Option>
+        <Option class="text-start fs-5 btn btn-dark rounded-4" value="clear">Clear</Option>
+        <Option class="text-start fs-5 filter" value="Free Wi-Fi">Free Wi-Fi</Option>
+        <Option class="text-start fs-5 filter" value="Parking">Parking</Option>
+        <Option class="text-start fs-5 filter" value="Takeaway">Takeaway</Option>
+        <Option class="text-start fs-5 filter" value="Outdoor seating">Outdoor seating</Option>
+        <Option class="text-start fs-5 filter" value="Card & mobile">Card & mobile</Option>
+        <Option class="text-start fs-5 filter" value="Live entertainment">Live entertainment</Option>
+    </select>
+        <input type="text" class="d-none d-lg-block border border-1 rounded-pill d-flex ps-3 py-2 ms-2 col-lg-2 col-8" placeholder="Search by location" id="search" style="font-size: 20px;">            
+</div>
+<div class="row mt-2 d-lg-none">
+    <input type="text" class="border border-1 rounded-pill ps-3 py-2 fs-5 ms-2 col-lg-3 col-8" placeholder="Search by location" id="search">            
+</div>
+<div class="container my-3">
+    <div class="fs-4 h5 counter"><%= rows.length %> <%= rows.length === 1 ? 'Restaurant' : 'Restaurants' %> available</div>
+</div>

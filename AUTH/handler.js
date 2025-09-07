@@ -20,9 +20,10 @@ const handler = {
                 console.log('The data was inserted into the database successfully')
                 const query = 'SELECT * FROM users WHERE email = ?'
                 db.get(query, [body.email], (error,row) => {
-                    console.log(row)
-                    const token = jwt.sign({user : row}, 'token-secret')
-                    res.cookie('jwt', token, {maxAge : 86400000}).json('User registered successfully')
+                    if (error) return console.log('There was a problem retrieving the data from the database',error)
+                        console.log(row)
+                        const token = jwt.sign({user : row}, 'token-secret')
+                        res.cookie('jwt', token).json('User registered successfully')
                 })  
         })
                 
@@ -47,7 +48,7 @@ const handler = {
                     const same = await bcrypt.compare(body.password, row.password)
                     if(!same) return res.json('Invalid username or password')
                     const token = jwt.sign({user : row}, 'token-secret')
-                    res.cookie('jwt', token, {maxAge : 86400000}).json({user : row})
+                    res.cookie('jwt', token).json({user : row})
                     const query = 'INSERT INTO logtimes(timestamp)VALUES(?)'
                     db.run(query, [body.date], (error) => {
                         if (error) return console.log("There was a problem inserting the data in the database", error)
